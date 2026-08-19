@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { PORT } from "./config/env.js";
 import connectToDatabase from "./database/mongodb.js";
 import authRouter from "./routes/auth.routes.js";
@@ -10,6 +11,13 @@ import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
 const app = express();
 
 app.set("trust proxy", true);
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://labored-unrivaled-raging.ngrok-free.dev"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
